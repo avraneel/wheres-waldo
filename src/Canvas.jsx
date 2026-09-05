@@ -5,6 +5,8 @@ import styles from "./canvas.module.css";
 
 export default function Canvas() {
   const canvasRef = useRef(null);
+  const popoverRef = useRef(null);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -28,6 +30,9 @@ export default function Canvas() {
         boundingBoxLength,
       );
       ctx.stroke();
+      // set popover
+      const popover = popoverRef.current;
+      popover.showPopover();
     });
 
     img.src = imgUrl;
@@ -46,7 +51,14 @@ export default function Canvas() {
           width={window.innerWidth}
           height={window.innerHeight}
         />
+        <div ref={popoverRef} className="popoverNames" popover="auto">
+          Popover
+        </div>
       </div>
     </>
   );
+}
+
+function contextMenu() {
+  return <ul></ul>;
 }
