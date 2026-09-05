@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import imgUrl from "./assets/museum.png";
 import { boundingBoxLength } from "./globals";
 import styles from "./canvas.module.css";
+import { characters } from "./globals";
 
 export default function Canvas() {
   const canvasRef = useRef(null);
@@ -36,8 +37,6 @@ export default function Canvas() {
     });
 
     img.src = imgUrl;
-    let rect = canvas.getBoundingClientRect();
-    console.log(rect.left + "," + rect.top);
   }, []);
 
   return (
@@ -52,13 +51,17 @@ export default function Canvas() {
           height={window.innerHeight}
         />
         <div ref={popoverRef} className="popoverNames" popover="auto">
-          Popover
+          <ContextMenu />
         </div>
       </div>
     </>
   );
 }
 
-function contextMenu() {
-  return <ul></ul>;
+function ContextMenu() {
+  const items = characters.map((item, index) => (
+    <li key={index}>{item.name}</li>
+  ));
+
+  return <ul>{items}</ul>;
 }

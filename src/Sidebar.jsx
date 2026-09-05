@@ -1,24 +1,6 @@
-import waldoUrl from "./assets/waldo.png";
-import wendaUrl from "./assets/wenda.png";
-import odlawUrl from "./assets/odlaw.png";
-import styles from "./sidebar.module.css";
+import { characters } from "./globals";
 
 export default function Sidebar() {
-  const characters = [
-    {
-      name: "Waldo",
-      imgUrl: waldoUrl,
-    },
-    {
-      name: "Wenda",
-      imgUrl: wendaUrl,
-    },
-    {
-      name: "Odlaw",
-      imgUrl: odlawUrl,
-    },
-  ];
-
   const charElements = characters.map((item, index) => (
     <li key={index}>
       <CharItem name={item.name} imgUrl={item.imgUrl} />
