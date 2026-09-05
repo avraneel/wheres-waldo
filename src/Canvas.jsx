@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import imgUrl from "./assets/museum.png";
+import { boundingBoxLength } from "./globals";
 
 export default function Canvas() {
   const canvasRef = useRef(null);
@@ -12,12 +13,22 @@ export default function Canvas() {
       // it resizes on window resize. need to stop this bug
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-
+      let rect = canvas.getBoundingClientRect();
+      console.log(rect.left + "," + rect.top);
       ctx.drawImage(img, 0, 0, window.innerWidth, window.innerHeight);
     });
 
     canvas.addEventListener("click", (e) => {
+      let rect = canvas.getBoundingClientRect();
       console.log(e.x + "," + e.y);
+      ctx.beginPath();
+      ctx.rect(
+        e.x - rect.left - boundingBoxLength / 2,
+        e.y - rect.top - boundingBoxLength / 2,
+        boundingBoxLength,
+        boundingBoxLength,
+      );
+      ctx.stroke();
     });
 
     img.src = imgUrl;
