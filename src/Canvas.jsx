@@ -13,8 +13,6 @@ export default function Canvas() {
       // it resizes on window resize. need to stop this bug
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      let rect = canvas.getBoundingClientRect();
-      console.log(rect.left + "," + rect.top);
       ctx.drawImage(img, 0, 0, window.innerWidth, window.innerHeight);
     });
 
@@ -32,12 +30,15 @@ export default function Canvas() {
     });
 
     img.src = imgUrl;
+    let rect = canvas.getBoundingClientRect();
+    console.log(rect.left + "," + rect.top);
   }, []);
 
   return (
     <>
       <div>
         <canvas ref={canvasRef}></canvas>
+        <img src={imgUrl} alt="museum" />
       </div>
     </>
   );
