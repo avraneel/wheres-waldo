@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-
 import imgUrl from "./assets/museum.png";
 
 export default function Canvas() {
@@ -10,6 +9,7 @@ export default function Canvas() {
     const img = new Image();
 
     img.addEventListener("load", () => {
+      // it resizes on window resize. need to stop this bug
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
@@ -25,7 +25,9 @@ export default function Canvas() {
 
   return (
     <>
-      <canvas ref={canvasRef}></canvas>
+      <div>
+        <canvas ref={canvasRef}></canvas>
+      </div>
     </>
   );
 }
