@@ -1,3 +1,5 @@
+import styles from "./topbar.module.css";
+
 export default function TopBar() {
   const topBarTitles = ["Go back"];
 
@@ -8,7 +10,7 @@ export default function TopBar() {
   ));
 
   return (
-    <nav>
+    <nav className={styles.topbar}>
       <ul>{topBarItems}</ul>
     </nav>
   );
