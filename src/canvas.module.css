@@ -1,0 +1,9 @@
+.mapImage {
+  position: absolute;
+  z-index: 0;
+}
+
+.mapCanvas {
+  position: absolute;
+  z-index: 1;
+}
