@@ -30,9 +30,15 @@ export default function Canvas() {
         boundingBoxLength,
         boundingBoxLength,
       );
+      console.log(e.x, e.y);
       ctx.stroke();
       // set popover
       const popover = popoverRef.current;
+      popover.hidePopover();
+      popover.style.left = `${e.clientX + boundingBoxLength / 2}px`;
+      popover.style.top = `${e.clientY}px`;
+      console.log(popover.style.left);
+      console.log(popover.style.top);
       popover.showPopover();
     });
 
@@ -50,7 +56,7 @@ export default function Canvas() {
           width={window.innerWidth}
           height={window.innerHeight}
         />
-        <div ref={popoverRef} className="popoverNames" popover="auto">
+        <div ref={popoverRef} className={styles.popoverNames} popover="auto">
           <ContextMenu />
         </div>
       </div>

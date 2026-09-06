@@ -6,9 +6,9 @@ import TopBar from "./TopBar.jsx";
 import Sidebar from "./Sidebar.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  <>
     <TopBar />
     <Sidebar />
     <Canvas />
-  </StrictMode>,
+  </>,
 );
