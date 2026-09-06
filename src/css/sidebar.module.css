@@ -1,0 +1,13 @@
+.sidebar {
+  grid-column: 1;
+  display: grid;
+}
+
+.sidebarList {
+  display: grid;
+  padding-left: 0;
+}
+
+.sidebarListItem {
+  list-style-type: none;
+}

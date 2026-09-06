@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import imgUrl from "./assets/museum.png";
-import { boundingBoxLength } from "./globals";
-import styles from "./canvas.module.css";
-import { characters } from "./globals";
+import imgUrl from "../assets/museum.png";
+import { boundingBoxLength } from "../globals";
+import styles from "../css/canvas.module.css";
+import { characters } from "../globals";
 
 export default function Canvas() {
   const canvasRef = useRef(null);
@@ -17,7 +17,6 @@ export default function Canvas() {
       // it resizes on window resize. need to stop this bug
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      // ctx.drawImage(img, 0, 0, window.innerWidth, window.innerHeight);
     });
 
     canvas.addEventListener("click", (e) => {
@@ -47,7 +46,7 @@ export default function Canvas() {
 
   return (
     <>
-      <div className="canvasContainer">
+      <div className={styles.canvasContainer}>
         <canvas ref={canvasRef} className={styles.mapCanvas}></canvas>
         <img
           src={imgUrl}

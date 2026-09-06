@@ -1,3 +1,7 @@
+.canvasContainer {
+  grid-column: 2;
+}
+
 .mapImage {
   position: absolute;
   z-index: 0;

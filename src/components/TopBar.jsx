@@ -1,4 +1,4 @@
-import styles from "./topbar.module.css";
+import styles from "../css/topbar.module.css";
 
 export default function TopBar() {
   const topBarTitles = ["Go back"];

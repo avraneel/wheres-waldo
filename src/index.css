@@ -1,7 +1,4 @@
 #root {
   display: grid;
-  grid-template-areas:
-    "topbar topbar topbar"
-    "sidebar map map"
-    "sidebar map map";
+  grid-template-columns: 1fr 10fr;
 }

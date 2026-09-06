@@ -1,7 +1,0 @@
-.sidebar {
-  grid-area: sidebar;
-}
-
-.sidebar ul {
-  display: grid;
-}
