@@ -8,13 +8,18 @@
 }
 
 .mapImage {
+  /* make both grid items use row1 and col1 */
+  grid-area: 1/1;
   border: 1px solid black;
+  /* 1075 x 668 is half of image res*/
+  width: 1075px;
+  height: 668px;
 }
 
 .mapCanvas {
-  /* absolute because we need it out of the normal flow but still inside the parent
-  relative and on top of image */
-  position: absolute;
+  /* make both grid items use row1 and col1 */
+  grid-area: 1/1;
+  /* canvas is below image so no need for z-index */
 }
 
 .popoverNames {

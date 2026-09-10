@@ -17,11 +17,18 @@ export default function Canvas() {
     img.addEventListener("load", () => {
       canvas.width = img.width;
       canvas.height = img.height;
+
+      for (let i = 0; i < canvas.width; i += 100) {
+        for (let j = 0; j < canvas.height; j += 100) {
+          // TODO store this value somewhere
+          ctx.strokeRect(i, j, 100, 100);
+        }
+      }
     });
 
     canvas.addEventListener("click", (e) => {
       let rect = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.beginPath();
       ctx.rect(
         e.x - rect.left - boundingBoxLength / 2,
@@ -30,7 +37,7 @@ export default function Canvas() {
         boundingBoxLength,
       );
       console.log(e.x, e.y);
-      ctx.stroke();
+      // ctx.stroke();
       // set popover
       const popover = popoverRef.current;
       popover.hidePopover();
