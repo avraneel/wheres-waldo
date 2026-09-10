@@ -15,7 +15,6 @@ export default function Canvas() {
     const img = imgRef.current;
 
     img.addEventListener("load", () => {
-      // it resizes on window resize. need to stop this bug
       canvas.width = img.width;
       canvas.height = img.height;
     });
