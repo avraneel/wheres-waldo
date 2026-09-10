@@ -1,18 +1,18 @@
 .canvasContainer {
   grid-column: 2;
-}
-
-.mapImage {
-  position: absolute;
-  z-index: 0;
+  border: 2px solid red;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* to block the absolute */
 }
 
 .mapCanvas {
+  /* absolute because we need it out of the normal flow but still inside the parent
+  relative and on top of image */
   position: absolute;
-  z-index: 1;
 }
 
 .popoverNames {
   position: absolute;
-  margin: 0;
 }
