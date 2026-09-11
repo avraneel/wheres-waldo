@@ -27,18 +27,9 @@ export default function Canvas() {
     });
 
     canvas.addEventListener("click", (e) => {
-      let rect = canvas.getBoundingClientRect();
-      // ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath();
-      ctx.rect(
-        e.x - rect.left - boundingBoxLength / 2,
-        e.y - rect.top - boundingBoxLength / 2,
-        boundingBoxLength,
-        boundingBoxLength,
-      );
-      console.log(e.x, e.y);
-      // ctx.stroke();
-      // set popover
+      const x = ~~(e.offsetX / 100);
+      const y = ~~(e.offsetY / 100);
+      console.log(x, y);
       const popover = popoverRef.current;
       popover.hidePopover();
       popover.style.left = `${e.clientX + boundingBoxLength / 2}px`;
