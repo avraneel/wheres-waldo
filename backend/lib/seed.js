@@ -1,9 +1,21 @@
 import { prisma } from "./prisma";
 
-const character = await prisma.character.create({
-  data: {
-    name: "Waldo",
-    x: 
-    y: ,
-  },
+await prisma.characters.createMany({
+  data: [
+    {
+      name: "Waldo",
+      x: 9,
+      y: 4,
+    },
+    {
+      name: "Wenda",
+      x: 8,
+      y: 4,
+    },
+    {
+      name: "Odlaw",
+      x: 1,
+      y: 4,
+    },
+  ],
 });
