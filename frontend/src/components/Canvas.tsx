@@ -88,26 +88,28 @@ function ContextMenu(props: { x: number; y: number }) {
   console.log(props.x, props.y);
   const [chars, setChars] = useState(characters);
 
-  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     const buttonClicked = e.nativeEvent.submitter as HTMLButtonElement;
     const char = buttonClicked.value;
     setChars(chars.filter((el) => el.name !== char));
     // send request here
+    await makeRequest(char);
+  }
+
+  async function makeRequest(name: string) {
     const response = await fetch("http://localhost:3000/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: char,
+        name: name,
         x: props.x,
         y: props.y,
       }),
     });
   }
-
-  async function makeRequest(params: type) {}
 
   const items = chars.map(
     (item, index) =>
