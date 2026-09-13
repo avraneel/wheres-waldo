@@ -8,13 +8,16 @@ export const characters = [
   {
     name: "Waldo",
     imgUrl: waldoUrl,
+    done: false,
   },
   {
     name: "Wenda",
     imgUrl: wendaUrl,
+    done: false,
   },
   {
     name: "Odlaw",
     imgUrl: odlawUrl,
+    done: false,
   },
 ];
