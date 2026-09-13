@@ -94,7 +94,20 @@ function ContextMenu(props: { x: number; y: number }) {
     const char = buttonClicked.value;
     setChars(chars.filter((el) => el.name !== char));
     // send request here
+    const response = await fetch("http://localhost:3000/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: char,
+        x: props.x,
+        y: props.y,
+      }),
+    });
   }
+
+  async function makeRequest(params: type) {}
 
   const items = chars.map(
     (item, index) =>
