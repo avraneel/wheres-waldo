@@ -92,9 +92,9 @@ function ContextMenu(props: { x: number; y: number }) {
     e.preventDefault();
     const buttonClicked = e.nativeEvent.submitter as HTMLButtonElement;
     const char = buttonClicked.value;
+    await makeRequest(char);
     setChars(chars.filter((el) => el.name !== char));
     // send request here
-    await makeRequest(char);
   }
 
   async function makeRequest(name: string) {
@@ -109,6 +109,8 @@ function ContextMenu(props: { x: number; y: number }) {
         y: props.y,
       }),
     });
+    const data = await response.json();
+    console.log(data);
   }
 
   const items = chars.map(
