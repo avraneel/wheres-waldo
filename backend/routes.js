@@ -13,9 +13,9 @@ routes.post("/", async (req, res) => {
     },
   });
   if (userX === x && userY === y) {
-    res.status(200).json({ msg: "Found!" });
+    res.status(200).json({ found: true });
   } else {
-    res.status(400).json({ msg: "Not Found" });
+    res.status(200).json({ found: false });
   }
 });
 
