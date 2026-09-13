@@ -24,4 +24,14 @@
 
 .popoverNames {
   position: absolute;
+  padding: 1rem;
+  background-color: white;
+  border: 2px solid black;
+}
+
+.charList {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
 }
