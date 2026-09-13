@@ -4,8 +4,8 @@ import styles from "../css/canvas.module.css";
 import { characters } from "../globals";
 
 export default function Canvas() {
-  const canvasRef = useRef(null);
-  const imgRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
   const [box, setBox] = useState({
     x: -1,
     y: -1,
@@ -15,10 +15,11 @@ export default function Canvas() {
   });
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = canvasRef.current as HTMLCanvasElement;
     const ctx = canvas.getContext("2d");
+    if (ctx === null) return;
     const img = imgRef.current;
-
+    if (img === null) return;
     img.addEventListener("load", () => {
       canvas.width = img.width;
       canvas.height = img.height;
@@ -33,9 +34,10 @@ export default function Canvas() {
     img.src = imgUrl;
   }, []);
 
-  function handleClick(e) {
+  function handleClick(e: React.MouseEvent<HTMLCanvasElement>) {
     const canvas = e.currentTarget;
     const container = canvas.parentElement;
+    if (container == null) return;
 
     const canvasRect = canvas.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
@@ -45,7 +47,6 @@ export default function Canvas() {
      * so we need to take into account the space between canvas and container
      * so, offsetY + (canvas.top - container.top) gives that space
      */
-
     const locx = canvasRect.left - containerRect.left + e.nativeEvent.offsetX;
     const locy = canvasRect.top - containerRect.top + e.nativeEvent.offsetY;
 
@@ -65,7 +66,7 @@ export default function Canvas() {
       <canvas
         ref={canvasRef}
         className={styles.mapCanvas}
-        onClick={handleClick}
+        onClick={(e) => handleClick(e)}
       ></canvas>
       {box.show && (
         <div
@@ -83,13 +84,14 @@ export default function Canvas() {
   );
 }
 
-function ContextMenu({ x, y }) {
-  console.log(x, y);
+function ContextMenu(props: { x: number; y: number }) {
+  console.log(props.x, props.y);
   const [chars, setChars] = useState(characters);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    const char = e.nativeEvent.submitter.value;
+    const buttonClicked = e.nativeEvent.submitter as HTMLButtonElement;
+    const char = buttonClicked.value;
     setChars(chars.filter((el) => el.name !== char));
     // send request here
   }
@@ -98,7 +100,7 @@ function ContextMenu({ x, y }) {
     (item, index) =>
       item.done === false && (
         <li key={index}>
-          <form method="post" onSubmit={handleSubmit}>
+          <form method="post" onSubmit={(e) => handleSubmit(e)}>
             <button value={item.name}>{item.name}</button>
           </form>
         </li>

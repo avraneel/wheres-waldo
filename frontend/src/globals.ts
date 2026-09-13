@@ -2,9 +2,15 @@ import waldoUrl from "./assets/waldo.png";
 import wendaUrl from "./assets/wenda.png";
 import odlawUrl from "./assets/odlaw.png";
 
-export const boundingBoxLength = 100;
+interface CharacterDetails {
+  name: string;
+  imgUrl: string;
+  done: boolean;
+}
 
-export const characters = [
+export const boundingBoxLength: number = 100;
+
+export const characters: CharacterDetails[] = [
   {
     name: "Waldo",
     imgUrl: waldoUrl,
