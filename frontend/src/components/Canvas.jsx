@@ -62,15 +62,18 @@ function ContextMenu() {
     // send request here
   }
 
-  const items = chars.map((item, index) => (
-    <li key={index}>
-      <form method="post" onSubmit={handleSubmit}>
-        <button ref={characterRef} value={item.name}>
-          {item.name}
-        </button>
-      </form>
-    </li>
-  ));
+  const items = chars.map(
+    (item, index) =>
+      item.done === false && (
+        <li key={index}>
+          <form method="post" onSubmit={handleSubmit}>
+            <button ref={characterRef} value={item.name}>
+              {item.name}
+            </button>
+          </form>
+        </li>
+      ),
+  );
 
   return <ul>{items}</ul>;
 }
