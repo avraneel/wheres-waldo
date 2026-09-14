@@ -22,3 +22,16 @@
   text-align: center;
   gap: 1rem;
 }
+
+@media (width <= 800px) {
+  .sidebar {
+    display: grid;
+    justify-content: center;
+    align-items: start;
+  }
+
+  .sidebarList {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
