@@ -30,7 +30,7 @@ routes.get("/time", (_req, res) => {
     const minutes = ~~(seconds / 60);
     const minutesDisplayed = ("00" + (minutes % 60)).slice(-2);
     // const body = { min: minutesDisplayed, sec: secondsDisplayed };
-    res.write(`${minutesDisplayed} : ${secondsDisplayed}`);
+    res.write(`data: ${minutesDisplayed} : ${secondsDisplayed}\n\n`);
   }, 1000);
 });
 
