@@ -29,7 +29,8 @@ routes.get("/time", (_req, res) => {
     const secondsDisplayed = ("00" + (seconds % 60)).slice(-2);
     const minutes = ~~(seconds / 60);
     const minutesDisplayed = ("00" + (minutes % 60)).slice(-2);
-    // const body = { min: minutesDisplayed, sec: secondsDisplayed };
+
+    // why this format? look here: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format
     res.write(`data: ${minutesDisplayed} : ${secondsDisplayed}\n\n`);
   }, 1000);
 });
