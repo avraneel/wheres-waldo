@@ -1,4 +1,5 @@
 .canvasContainer {
+  grid-area: canvas;
   grid-column: 2;
   display: grid;
   justify-content: center;

@@ -14,7 +14,7 @@ export default function Sidebar() {
   ));
 
   return (
-    <div>
+    <div className={styles.sidebar}>
       <h2>Characters</h2>
       <ul className={styles.sidebarList}>{charElements}</ul>
     </div>
@@ -23,9 +23,9 @@ export default function Sidebar() {
 
 function CharItem({ name, imgUrl }: characterItemSidebar) {
   return (
-    <div className={styles.sidebar}>
+    <>
       <img src={imgUrl} alt={name} width={64} />
       <p>{name}</p>
-    </div>
+    </>
   );
 }

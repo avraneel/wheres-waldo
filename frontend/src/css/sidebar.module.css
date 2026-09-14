@@ -1,15 +1,24 @@
 .sidebar {
   grid-column: 1;
-  display: flex;
+  grid-template-rows: 1fr 10fr;
+  padding-bottom: 5rem;
+  display: grid;
+  justify-content: center;
+  grid-area: sidebar;
+}
+
+.sidebarList {
+  padding-left: 0;
+  list-style-type: none;
+  display: grid;
   justify-content: center;
   align-items: center;
 }
 
-.sidebarList {
-  display: grid;
-  padding-left: 0;
-}
-
 .sidebarListItem {
-  list-style-type: none;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
 }
