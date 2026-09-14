@@ -1,4 +1,4 @@
-import { characters } from "../globals";
+import { characters } from "./globals";
 import styles from "../css/sidebar.module.css";
 
 interface characterItemSidebar {

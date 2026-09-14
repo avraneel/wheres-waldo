@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import imgUrl from "../assets/museum.png";
 import styles from "../css/canvas.module.css";
-import { characters } from "../globals";
+import ContextMenu from "./ContextMenu";
+import { type Status, type EventType, type Setter } from "./globals";
 
-export default function Canvas() {
+const widthFactor = 100 / 1075;
+const heightFactor = 100 / 668;
+
+export default function Canvas({ setter }: { setter: Setter<Status> }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const [box, setBox] = useState({
@@ -16,25 +20,37 @@ export default function Canvas() {
 
   useEffect(() => {
     const canvas = canvasRef.current as HTMLCanvasElement;
-    const ctx = canvas.getContext("2d");
-    if (ctx === null) return;
-    const img = imgRef.current;
-    if (img === null) return;
-    img.addEventListener("load", () => {
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    const img = imgRef.current as HTMLImageElement;
+
+    function drawCanvas() {
       canvas.width = img.width;
       canvas.height = img.height;
 
-      for (let i = 0; i < canvas.width; i += 100) {
-        for (let j = 0; j < canvas.height; j += 100) {
-          ctx.strokeRect(i, j, 100, 100);
+      for (let i = 0; i < canvas.width; i += img.width * widthFactor) {
+        for (let j = 0; j < canvas.height; j += img.height * heightFactor) {
+          ctx.strokeRect(
+            i,
+            j,
+            img.width * widthFactor,
+            img.height * heightFactor,
+          );
         }
       }
+    }
+
+    img.addEventListener("load", () => {
+      drawCanvas();
+    });
+
+    window.addEventListener("resize", () => {
+      drawCanvas();
     });
 
     img.src = imgUrl;
   }, []);
 
-  function handleClick(e: React.MouseEvent<HTMLCanvasElement>) {
+  function handleClick(e: EventType<HTMLCanvasElement>) {
     const canvas = e.currentTarget;
     const container = canvas.parentElement;
     if (container == null) return;
@@ -50,10 +66,9 @@ export default function Canvas() {
     const locx = canvasRect.left - containerRect.left + e.nativeEvent.offsetX;
     const locy = canvasRect.top - containerRect.top + e.nativeEvent.offsetY;
 
-    console.log(e.nativeEvent.offsetY);
     setBox({
-      x: ~~(e.nativeEvent.offsetX / 100),
-      y: ~~(e.nativeEvent.offsetY / 100),
+      x: ~~(e.nativeEvent.offsetX / (canvas.width * widthFactor)),
+      y: ~~(e.nativeEvent.offsetY / (canvas.height * heightFactor)),
       locx,
       locy,
       show: true,
@@ -76,53 +91,9 @@ export default function Canvas() {
             left: box.locx,
           }}
         >
-          <ContextMenu x={box.x} y={box.y} />
+          <ContextMenu x={box.x} y={box.y} setter={setter} />
         </div>
       )}
-      ;
     </div>
   );
-}
-
-function ContextMenu(props: { x: number; y: number }) {
-  console.log(props.x, props.y);
-  const [chars, setChars] = useState(characters);
-
-  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const buttonClicked = e.nativeEvent.submitter as HTMLButtonElement;
-    const char = buttonClicked.value;
-    await makeRequest(char);
-    setChars(chars.filter((el) => el.name !== char));
-    // send request here
-  }
-
-  async function makeRequest(name: string) {
-    const response = await fetch("http://localhost:3000/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        x: props.x,
-        y: props.y,
-      }),
-    });
-    const data = await response.json();
-    console.log(data);
-  }
-
-  const items = chars.map(
-    (item, index) =>
-      item.done === false && (
-        <li key={index}>
-          <form method="post" onSubmit={(e) => handleSubmit(e)}>
-            <button value={item.name}>{item.name}</button>
-          </form>
-        </li>
-      ),
-  );
-
-  return <ul className={styles.charList}>{items}</ul>;
 }
