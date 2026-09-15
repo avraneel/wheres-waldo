@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import imgUrl from "../assets/museum.png";
+import imgUrl from "../assets/museum.avif";
 import styles from "../css/canvas.module.css";
 import ContextMenu from "./ContextMenu";
 import { type Status, type EventType, type Setter } from "./globals";
@@ -77,7 +77,14 @@ export default function Canvas({ setter }: { setter: Setter<Status> }) {
 
   return (
     <div className={styles.canvasContainer}>
-      <img ref={imgRef} src={imgUrl} alt="museum" className={styles.mapImage} />
+      <img
+        ref={imgRef}
+        src={imgUrl}
+        alt="museum"
+        width="1075px"
+        height="668px"
+        className={styles.mapImage}
+      />
       <canvas
         ref={canvasRef}
         className={styles.mapCanvas}

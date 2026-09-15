@@ -1,6 +1,6 @@
-import waldoUrl from "../assets/waldo.png";
-import wendaUrl from "../assets/wenda.png";
-import odlawUrl from "../assets/odlaw.png";
+import waldoUrl from "../assets/waldo-128w.avif";
+import wendaUrl from "../assets/wenda-128w.avif";
+import odlawUrl from "../assets/odlaw-128w.avif";
 
 interface CharacterDetails {
   name: string;

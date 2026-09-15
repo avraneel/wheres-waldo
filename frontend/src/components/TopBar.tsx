@@ -13,7 +13,7 @@ export default function TopBar() {
     evtSource.onerror = function (event) {
       console.log(event);
     };
-  });
+  }, []);
 
   return (
     <nav className={styles.topbar}>
