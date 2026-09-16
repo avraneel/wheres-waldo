@@ -15,8 +15,6 @@ export default function Canvas() {
     y: -1,
     locx: 0,
     locy: 0,
-    pointx: 0,
-    pointy: 0,
     show: false,
   });
 
@@ -71,8 +69,6 @@ export default function Canvas() {
       y: ~~(e.nativeEvent.offsetY / (canvas.height * heightFactor)),
       locx,
       locy,
-      pointx: e.nativeEvent.offsetX,
-      pointy: e.nativeEvent.offsetY,
       show: true,
     });
   }
@@ -103,13 +99,7 @@ export default function Canvas() {
             left: box.locx,
           }}
         >
-          <ContextMenu
-            x={box.x}
-            y={box.y}
-            canvasRef={canvasRef}
-            pointx={box.pointx}
-            pointy={box.pointy}
-          />
+          <ContextMenu x={box.x} y={box.y} />
         </div>
       )}
     </main>

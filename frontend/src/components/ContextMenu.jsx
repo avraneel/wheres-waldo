@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { characters } from "./globals";
-import markerIcon from "../assets/marker.svg";
 import styles from "../css/contextmenu.module.css";
 
-export default function ContextMenu({ x, y, canvasRef, pointx, pointy }) {
+export default function ContextMenu({ x, y }) {
   const [chars, setChars] = useState(characters);
 
   async function handleSubmit(e) {
@@ -27,20 +26,12 @@ export default function ContextMenu({ x, y, canvasRef, pointx, pointy }) {
     });
     const data = await response.json();
     if (data["found"] === true) {
+      // this will re-render the canvas
       setChars(
         chars.map((el) =>
           el.name === name ? { ...el, found: true } : { ...el, found: false },
         ),
       );
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
-      const marker = new Image();
-      console.log(pointx);
-      console.log(ctx);
-      marker.addEventListener("load", () => {});
-
-      marker.src = markerIcon;
-      ctx.drawImage(marker, pointx, pointy);
     }
   }
 
