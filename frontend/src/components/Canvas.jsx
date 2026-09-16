@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import imgUrl from "../assets/museum.avif";
 import styles from "../css/canvas.module.css";
-import ContextMenu from "./ContextMenu";
+import { characters } from "./globals";
+import contextMenuStyles from "../css/contextmenu.module.css";
 
 const widthFactor = 100 / 1075;
 const heightFactor = 100 / 668;
@@ -10,6 +11,7 @@ export default function Canvas() {
   const canvasRef = useRef(null);
   const imgRef = useRef(null);
 
+  const [chars, setChars] = useState(characters);
   const [box, setBox] = useState({
     x: -1,
     y: -1,
@@ -99,9 +101,54 @@ export default function Canvas() {
             left: box.locx,
           }}
         >
-          <ContextMenu x={box.x} y={box.y} />
+          <ContextMenu x={box.x} y={box.y} chars={chars} setChars={setChars} />
         </div>
       )}
     </main>
   );
+}
+
+function ContextMenu({ x, y, chars, setChars }) {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const buttonClicked = e.nativeEvent.submitter;
+    const char = buttonClicked.value;
+    await makeRequest(char);
+  }
+
+  async function makeRequest(name) {
+    const response = await fetch("http://localhost:3000/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        x,
+        y,
+      }),
+    });
+    const data = await response.json();
+    if (data["found"] === true) {
+      // this will re-render the canvas
+      setChars(
+        chars.map((el) =>
+          el.name === name ? { ...el, found: true } : { ...el, found: false },
+        ),
+      );
+    }
+  }
+
+  const items = chars.map(
+    (item, index) =>
+      item.found === false && (
+        <li key={index}>
+          <form method="post" onSubmit={(e) => handleSubmit(e)}>
+            <button value={item.name}>{item.name}</button>
+          </form>
+        </li>
+      ),
+  );
+
+  return <ul className={contextMenuStyles.charList}>{items}</ul>;
 }
