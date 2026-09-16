@@ -24,7 +24,7 @@ export default function Sidebar() {
 function CharItem({ name, imgUrl }: characterItemSidebar) {
   return (
     <>
-      <img src={imgUrl} alt={name} width={64} height={119} />
+      <img src={imgUrl} alt={`Avatar of ${name}`} width={64} height={119} />
       <p>{name}</p>
     </>
   );

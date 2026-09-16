@@ -30,7 +30,6 @@ export default function ContextMenu(props: {
       }),
     });
     const data = await response.json();
-    console.log(data["found"] === "true");
     if (data["found"] === true) {
       setter("found");
       setChars(chars.filter((el) => el.name !== name));

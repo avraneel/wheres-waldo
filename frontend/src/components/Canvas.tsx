@@ -46,8 +46,6 @@ export default function Canvas({ setter }: { setter: Setter<Status> }) {
     window.addEventListener("resize", () => {
       drawCanvas();
     });
-
-    img.src = imgUrl;
   }, []);
 
   function handleClick(e: EventType<HTMLCanvasElement>) {
@@ -76,17 +74,20 @@ export default function Canvas({ setter }: { setter: Setter<Status> }) {
   }
 
   return (
-    <div className={styles.canvasContainer}>
+    <main className={styles.canvasContainer}>
       <img
         ref={imgRef}
         src={imgUrl}
         alt="museum"
-        width="1075px"
-        height="668px"
+        width={1075}
+        height={668}
+        fetchPriority="high"
         className={styles.mapImage}
       />
       <canvas
         ref={canvasRef}
+        width={1075}
+        height={668}
         className={styles.mapCanvas}
         onClick={(e) => handleClick(e)}
       ></canvas>
@@ -101,6 +102,6 @@ export default function Canvas({ setter }: { setter: Setter<Status> }) {
           <ContextMenu x={box.x} y={box.y} setter={setter} />
         </div>
       )}
-    </div>
+    </main>
   );
 }
