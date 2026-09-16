@@ -6,14 +6,17 @@ import ContextMenu from "./ContextMenu";
 const widthFactor = 100 / 1075;
 const heightFactor = 100 / 668;
 
-export default function Canvas({ setter }) {
+export default function Canvas() {
   const canvasRef = useRef(null);
   const imgRef = useRef(null);
+
   const [box, setBox] = useState({
     x: -1,
     y: -1,
     locx: 0,
     locy: 0,
+    pointx: 0,
+    pointy: 0,
     show: false,
   });
 
@@ -68,6 +71,8 @@ export default function Canvas({ setter }) {
       y: ~~(e.nativeEvent.offsetY / (canvas.height * heightFactor)),
       locx,
       locy,
+      pointx: e.nativeEvent.offsetX,
+      pointy: e.nativeEvent.offsetY,
       show: true,
     });
   }
@@ -88,7 +93,7 @@ export default function Canvas({ setter }) {
         width={1075}
         height={668}
         className={styles.mapCanvas}
-        onClick={(e) => handleClick(e)}
+        onClick={handleClick}
       ></canvas>
       {box.show && (
         <div
@@ -98,7 +103,13 @@ export default function Canvas({ setter }) {
             left: box.locx,
           }}
         >
-          <ContextMenu x={box.x} y={box.y} setter={setter} />
+          <ContextMenu
+            x={box.x}
+            y={box.y}
+            canvasRef={canvasRef}
+            pointx={box.pointx}
+            pointy={box.pointy}
+          />
         </div>
       )}
     </main>

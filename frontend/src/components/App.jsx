@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import TopBar from "./TopBar";
 import Sidebar from "./Sidebar";
 import Canvas from "./Canvas";
@@ -6,26 +5,12 @@ import Result from "./Result";
 import styles from "../css/app.module.css";
 
 export default function App() {
-  const [status, setStatus] = useState("unfound");
-  const [time, setTime] = useState("00: 00");
-
-  useEffect(() => {
-    const evtSource = new EventSource("http://localhost:3000/time");
-    evtSource.onmessage = (event) => {
-      setTime(event.data);
-    };
-
-    evtSource.onerror = function (event) {
-      console.log(event);
-    };
-  }, []);
-
   return (
     <div className={styles.app}>
-      <TopBar time={time} />
+      <TopBar />
       <Sidebar />
-      <Canvas setter={setStatus} />
-      <Result status={status} setter={setStatus} />
+      <Canvas />
+      <Result />
     </div>
   );
 }
