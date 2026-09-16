@@ -1,13 +1,6 @@
-import { type Status, type Setter } from "./globals";
 import styles from "../css/result.module.css";
 
-export default function Result({
-  status,
-  setter,
-}: {
-  status: Status;
-  setter: Setter<Status>;
-}) {
+export default function Result({ status, setter }) {
   function handleClick() {
     setter("unfound");
   }

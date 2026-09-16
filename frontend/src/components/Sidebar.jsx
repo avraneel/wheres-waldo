@@ -1,11 +1,6 @@
 import { characters } from "./globals";
 import styles from "../css/sidebar.module.css";
 
-interface characterItemSidebar {
-  name: string;
-  imgUrl: string;
-}
-
 export default function Sidebar() {
   const charElements = characters.map((item, index) => (
     <li key={index} className={styles.sidebarListItem}>
@@ -21,7 +16,7 @@ export default function Sidebar() {
   );
 }
 
-function CharItem({ name, imgUrl }: characterItemSidebar) {
+function CharItem({ name, imgUrl }) {
   return (
     <>
       <img src={imgUrl} alt={`Avatar of ${name}`} width={64} height={119} />

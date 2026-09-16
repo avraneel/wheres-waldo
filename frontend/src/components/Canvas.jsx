@@ -2,14 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import imgUrl from "../assets/museum.avif";
 import styles from "../css/canvas.module.css";
 import ContextMenu from "./ContextMenu";
-import { type Status, type EventType, type Setter } from "./globals";
 
 const widthFactor = 100 / 1075;
 const heightFactor = 100 / 668;
 
-export default function Canvas({ setter }: { setter: Setter<Status> }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
+export default function Canvas({ setter }) {
+  const canvasRef = useRef(null);
+  const imgRef = useRef(null);
   const [box, setBox] = useState({
     x: -1,
     y: -1,
@@ -19,9 +18,9 @@ export default function Canvas({ setter }: { setter: Setter<Status> }) {
   });
 
   useEffect(() => {
-    const canvas = canvasRef.current as HTMLCanvasElement;
-    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-    const img = imgRef.current as HTMLImageElement;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const img = imgRef.current;
 
     function drawCanvas() {
       canvas.width = img.width;
@@ -48,7 +47,7 @@ export default function Canvas({ setter }: { setter: Setter<Status> }) {
     });
   }, []);
 
-  function handleClick(e: EventType<HTMLCanvasElement>) {
+  function handleClick(e) {
     const canvas = e.currentTarget;
     const container = canvas.parentElement;
     if (container == null) return;

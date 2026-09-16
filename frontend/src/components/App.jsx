@@ -3,12 +3,11 @@ import TopBar from "./TopBar";
 import Sidebar from "./Sidebar";
 import Canvas from "./Canvas";
 import Result from "./Result";
-import { type Status } from "./globals";
 import styles from "../css/app.module.css";
 
 export default function App() {
-  const [status, setStatus] = useState<Status>("unfound");
-  const [time, setTime] = useState<string>("00: 00");
+  const [status, setStatus] = useState("unfound");
+  const [time, setTime] = useState("00: 00");
 
   useEffect(() => {
     const evtSource = new EventSource("http://localhost:3000/time");

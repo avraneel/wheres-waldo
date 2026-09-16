@@ -1,23 +1,18 @@
 import { useState } from "react";
-import { characters, type Status, type Setter } from "./globals";
+import { characters } from "./globals";
 import styles from "../css/contextmenu.module.css";
 
-export default function ContextMenu(props: {
-  x: number;
-  y: number;
-  setter: Setter<Status>;
-}) {
-  console.log(props.x, props.y);
+export default function ContextMenu({ setter }) {
   const [chars, setChars] = useState(characters);
 
-  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const buttonClicked = e.nativeEvent.submitter as HTMLButtonElement;
+    const buttonClicked = e.nativeEvent.submitter;
     const char = buttonClicked.value;
-    await makeRequest(char, props.setter);
+    await makeRequest(char, setter);
   }
 
-  async function makeRequest(name: string, setter: Setter<Status>) {
+  async function makeRequest(name, setter) {
     const response = await fetch("http://localhost:3000/", {
       method: "POST",
       headers: {
