@@ -3,11 +3,12 @@ import imgUrl from "../assets/museum.avif";
 import styles from "../css/canvas.module.css";
 import { characters } from "./globals";
 import contextMenuStyles from "../css/contextmenu.module.css";
+import Result from "./Result";
 
 const widthFactor = 100 / 1075;
 const heightFactor = 100 / 668;
 
-export default function Canvas() {
+export default function Canvas({ status, setStatus }) {
   const canvasRef = useRef(null);
   const imgRef = useRef(null);
 
@@ -101,14 +102,22 @@ export default function Canvas() {
             left: box.locx,
           }}
         >
-          <ContextMenu x={box.x} y={box.y} chars={chars} setChars={setChars} />
+          <ContextMenu
+            x={box.x}
+            y={box.y}
+            chars={chars}
+            setChars={setChars}
+            status={status}
+            setStatus={setStatus}
+          />
         </div>
       )}
+      <Result status={status} setStatus={setStatus} />
     </main>
   );
 }
 
-function ContextMenu({ x, y, chars, setChars }) {
+function ContextMenu({ x, y, chars, setChars, setStatus }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const buttonClicked = e.nativeEvent.submitter;
@@ -131,11 +140,14 @@ function ContextMenu({ x, y, chars, setChars }) {
     const data = await response.json();
     if (data["found"] === true) {
       // this will re-render the canvas
+      setStatus("found");
       setChars(
         chars.map((el) =>
           el.name === name ? { ...el, found: true } : { ...el, found: false },
         ),
       );
+    } else {
+      setStatus("wrong");
     }
   }
 

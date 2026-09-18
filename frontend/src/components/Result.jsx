@@ -1,8 +1,8 @@
 import styles from "../css/result.module.css";
 
-export default function Result({ status, setter }) {
+export default function Result({ status, setStatus }) {
   function handleClick() {
-    setter("unfound");
+    setStatus("unfound");
   }
 
   return (
