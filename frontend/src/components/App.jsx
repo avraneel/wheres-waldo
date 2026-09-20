@@ -2,17 +2,26 @@ import TopBar from "./TopBar";
 import Sidebar from "./Sidebar";
 import Canvas from "./Canvas";
 import Result from "./Result";
+import { characters } from "./globals";
 import styles from "../css/app.module.css";
 import { useState } from "react";
 
 export default function App() {
-  console.log("render App");
+  // console.log("app render");
   const [status, setStatus] = useState("unfound");
+  const [gameOver, setGameOver] = useState(false);
+  const [chars, setChars] = useState(characters);
   return (
     <div className={styles.app}>
-      <TopBar />
-      <Sidebar />
-      <Canvas status={status} setStatus={setStatus} />
+      <TopBar gameOver={gameOver} />
+      <Sidebar chars={chars} />
+      <Canvas
+        status={status}
+        setStatus={setStatus}
+        chars={chars}
+        setChars={setChars}
+        setGameOver={setGameOver}
+      />
       <Result />
     </div>
   );

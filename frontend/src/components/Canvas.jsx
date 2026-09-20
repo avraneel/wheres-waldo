@@ -2,18 +2,22 @@ import { useEffect, useRef, useState } from "react";
 import imgUrl from "../assets/museum.avif";
 import markerUrl from "../assets/marker.svg";
 import styles from "../css/canvas.module.css";
-import { characters } from "./globals";
 import contextMenuStyles from "../css/contextmenu.module.css";
 import Result from "./Result";
 
 const widthFactor = 100 / 1075;
 const heightFactor = 100 / 668;
 
-export default function Canvas({ status, setStatus }) {
+export default function Canvas({
+  status,
+  setStatus,
+  chars,
+  setChars,
+  setGameOver,
+}) {
   const canvasRef = useRef(null);
   const imgRef = useRef(null);
-  console.log("render");
-  const [chars, setChars] = useState(characters);
+  // console.log("render");
   const [box, setBox] = useState({
     x: -1,
     y: -1,
@@ -73,7 +77,6 @@ export default function Canvas({ status, setStatus }) {
   }, [chars]);
 
   function handleClick(e) {
-    console.log(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     const canvas = e.currentTarget;
     const container = canvas.parentElement;
     if (container == null) return;
@@ -133,6 +136,7 @@ export default function Canvas({ status, setStatus }) {
             setChars={setChars}
             status={status}
             setStatus={setStatus}
+            setGameOver={setGameOver}
           />
         </div>
       )}
@@ -141,7 +145,7 @@ export default function Canvas({ status, setStatus }) {
   );
 }
 
-function ContextMenu({ box, setBox, chars, setChars, setStatus }) {
+function ContextMenu({ box, setBox, chars, setChars, setStatus, setGameOver }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const buttonClicked = e.nativeEvent.submitter;
@@ -165,6 +169,10 @@ function ContextMenu({ box, setBox, chars, setChars, setStatus }) {
     if (data["found"] === true) {
       // multiple state changes will be batched together
       setStatus("found");
+      if (chars.filter((el) => el.found === true).length + 1 === chars.length) {
+        console.log("game over");
+        setGameOver("true");
+      }
       setChars(
         chars.map((el) =>
           el.name === name
@@ -174,7 +182,7 @@ function ContextMenu({ box, setBox, chars, setChars, setStatus }) {
                 clickedY: box.clickedY,
                 found: true,
               }
-            : { ...el, found: false },
+            : { ...el },
         ),
       );
     } else {

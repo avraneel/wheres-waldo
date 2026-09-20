@@ -1,10 +1,9 @@
-import { characters } from "./globals";
 import styles from "../css/sidebar.module.css";
 
-export default function Sidebar() {
-  const charElements = characters.map((item, index) => (
+export default function Sidebar({ chars }) {
+  const charElements = chars.map((item, index) => (
     <li key={index} className={styles.sidebarListItem}>
-      <CharItem name={item.name} imgUrl={item.imgUrl} />
+      <CharItem name={item.name} imgUrl={item.imgUrl} found={item.found} />
     </li>
   ));
 
@@ -16,11 +15,12 @@ export default function Sidebar() {
   );
 }
 
-function CharItem({ name, imgUrl }) {
+function CharItem({ name, imgUrl, found }) {
   return (
     <>
       <img src={imgUrl} alt={`Avatar of ${name}`} width={64} height={119} />
       <p>{name}</p>
+      <p>Found: {String(found)}</p>
     </>
   );
 }
