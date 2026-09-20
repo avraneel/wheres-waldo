@@ -11,9 +11,10 @@ export default function App() {
   const [status, setStatus] = useState("unfound");
   const [gameOver, setGameOver] = useState(false);
   const [chars, setChars] = useState(characters);
+  const [finalTime, setFinalTime] = useState("00: 00");
   return (
     <div className={styles.app}>
-      <TopBar gameOver={gameOver} />
+      <TopBar gameOver={gameOver} setFinalTime={setFinalTime} />
       <Sidebar chars={chars} />
       <Canvas
         status={status}

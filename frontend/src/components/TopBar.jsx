@@ -10,12 +10,19 @@ export default function TopBar({ gameOver }) {
   );
 }
 
-function Timer({ gameOver }) {
-  // timer should be in its own component state otherwise whole app/topbar will re-render
+function Timer({ gameOver, setFinalTime }) {
   const [time, setTime] = useState("00: 00");
+  // timer should be in its own component state otherwise whole app/topbar will re-render
 
   useEffect(() => {
-    if (gameOver === true) return;
+    /**
+     * if gameOver is true, the previous useEffect for starting the timer will close that connection,
+     * and the new effect will terminate here
+     *  */
+    if (gameOver === true) {
+      setFinalTime(time);
+      return;
+    }
     const evtSource = new EventSource("http://localhost:3000/time");
     evtSource.onmessage = (event) => {
       setTime(event.data);
