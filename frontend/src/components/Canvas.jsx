@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import imgUrl from "../assets/museum.avif";
+import markerUrl from "../assets/marker.svg";
 import styles from "../css/canvas.module.css";
 import { characters } from "./globals";
 import contextMenuStyles from "../css/contextmenu.module.css";
@@ -11,17 +12,23 @@ const heightFactor = 100 / 668;
 export default function Canvas({ status, setStatus }) {
   const canvasRef = useRef(null);
   const imgRef = useRef(null);
-
+  console.log("render");
   const [chars, setChars] = useState(characters);
   const [box, setBox] = useState({
     x: -1,
     y: -1,
     locx: 0,
     locy: 0,
+    clickedX: 0,
+    clickedY: 0,
     show: false,
   });
 
   useEffect(() => {
+    /**
+     * this useEffect will occur only when chars is updated, so we update chars
+     * only when it is found and re-render
+     */
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const img = imgRef.current;
@@ -49,9 +56,24 @@ export default function Canvas({ status, setStatus }) {
     window.addEventListener("resize", () => {
       drawCanvas();
     });
-  }, []);
+
+    function drawMarker(x, y) {
+      const marker = new Image();
+      marker.addEventListener("load", () => {
+        ctx.drawImage(marker, x - 24, y - 48);
+      });
+      marker.src = markerUrl;
+    }
+
+    chars.forEach((el) => {
+      if (el.found === true) {
+        drawMarker(el.clickedX, el.clickedY);
+      }
+    });
+  }, [chars]);
 
   function handleClick(e) {
+    console.log(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     const canvas = e.currentTarget;
     const container = canvas.parentElement;
     if (container == null) return;
@@ -73,6 +95,8 @@ export default function Canvas({ status, setStatus }) {
       locx,
       locy,
       show: true,
+      clickedX: e.nativeEvent.offsetX,
+      clickedY: e.nativeEvent.offsetY,
     });
   }
 
@@ -103,8 +127,8 @@ export default function Canvas({ status, setStatus }) {
           }}
         >
           <ContextMenu
-            x={box.x}
-            y={box.y}
+            box={box}
+            setBox={setBox}
             chars={chars}
             setChars={setChars}
             status={status}
@@ -117,7 +141,7 @@ export default function Canvas({ status, setStatus }) {
   );
 }
 
-function ContextMenu({ x, y, chars, setChars, setStatus }) {
+function ContextMenu({ box, setBox, chars, setChars, setStatus }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const buttonClicked = e.nativeEvent.submitter;
@@ -133,22 +157,30 @@ function ContextMenu({ x, y, chars, setChars, setStatus }) {
       },
       body: JSON.stringify({
         name: name,
-        x,
-        y,
+        x: box.x,
+        y: box.y,
       }),
     });
     const data = await response.json();
     if (data["found"] === true) {
-      // this will re-render the canvas
+      // multiple state changes will be batched together
       setStatus("found");
       setChars(
         chars.map((el) =>
-          el.name === name ? { ...el, found: true } : { ...el, found: false },
+          el.name === name
+            ? {
+                ...el,
+                clickedX: box.clickedX,
+                clickedY: box.clickedY,
+                found: true,
+              }
+            : { ...el, found: false },
         ),
       );
     } else {
       setStatus("wrong");
     }
+    setBox({ ...box, show: false });
   }
 
   const items = chars.map(
