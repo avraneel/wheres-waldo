@@ -10,7 +10,7 @@ export default function TopBar({ gameOver }) {
   );
 }
 
-function Timer({ gameOver, setFinalTime }) {
+function Timer({ gameOver }) {
   const [time, setTime] = useState("00: 00");
   // timer should be in its own component state otherwise whole app/topbar will re-render
 
@@ -20,7 +20,6 @@ function Timer({ gameOver, setFinalTime }) {
      * and the new effect will terminate here
      *  */
     if (gameOver === true) {
-      setFinalTime(time);
       return;
     }
     const evtSource = new EventSource("http://localhost:3000/time");
