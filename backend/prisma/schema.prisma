@@ -18,3 +18,10 @@ model Characters {
   x    Int
   y    Int
 }
+
+model Leaderboard {
+  id   Int      @id @default(autoincrement())
+  rank Int      @unique
+  name String
+  time DateTime
+}
