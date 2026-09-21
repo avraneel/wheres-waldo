@@ -171,7 +171,7 @@ function ContextMenu({ box, setBox, chars, setChars, setStatus, setGameOver }) {
       setStatus("found");
       if (chars.filter((el) => el.found === true).length + 1 === chars.length) {
         console.log("game over");
-        setGameOver("true");
+        setGameOver(true);
       }
       setChars(
         chars.map((el) =>

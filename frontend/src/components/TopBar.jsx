@@ -1,26 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import styles from "../css/topbar.module.css";
 
-export default function TopBar({ gameOver }) {
+export default function TopBar({ gameOver, finalTime, setFinalTime }) {
   return (
     <nav className={styles.topbar}>
       <h2>Where's Waldo?</h2>
-      <Timer gameOver={gameOver} />
+      <Timer
+        gameOver={gameOver}
+        finalTime={finalTime}
+        setFinalTime={setFinalTime}
+      />
     </nav>
   );
 }
 
-function Timer({ gameOver }) {
+function Timer({ gameOver, setFinalTime }) {
   const [time, setTime] = useState("00: 00");
   // timer should be in its own component state otherwise whole app/topbar will re-render
-
   useEffect(() => {
     /**
      * if gameOver is true, the previous useEffect for starting the timer will close that connection,
      * and the new effect will terminate here
      *  */
     if (gameOver === true) {
-      return;
+      setFinalTime(time);
+      return () => evtSource.close();
     }
     const evtSource = new EventSource("http://localhost:3000/time");
     evtSource.onmessage = (event) => {
