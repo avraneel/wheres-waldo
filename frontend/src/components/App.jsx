@@ -13,7 +13,6 @@ export default function App() {
   const [gameOver, setGameOver] = useState(false);
   const [chars, setChars] = useState(characters);
   const [finalTime, setFinalTime] = useState("00 : 00");
-  console.log(finalTime);
   return (
     <div className={styles.app}>
       <TopBar gameOver={gameOver} setFinalTime={setFinalTime} />

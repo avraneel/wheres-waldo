@@ -37,7 +37,7 @@ routes.get("/time", (_req, res) => {
 
 routes.post("/leaderboard", async (req, res) => {
   const name = req.body.name;
-  const [mins, seconds] = req.body.time.split(":");
+  const [mins, seconds] = req.body.time.split(" : ");
   await prisma.leaderboard.create({
     data: {
       name,
