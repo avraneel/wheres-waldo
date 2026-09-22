@@ -20,8 +20,8 @@ model Characters {
 }
 
 model Leaderboard {
-  id   Int      @id @default(autoincrement())
-  rank Int      @unique
-  name String
-  time DateTime
+  id      Int    @id @default(autoincrement())
+  name    String
+  mins    Int
+  seconds Int
 }

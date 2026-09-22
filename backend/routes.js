@@ -35,4 +35,23 @@ routes.get("/time", (_req, res) => {
   }, 1000);
 });
 
+routes.post("/leaderboard", async (req, res) => {
+  const name = req.body.name;
+  const [mins, seconds] = req.body.time.split(":");
+  await prisma.leaderboard.create({
+    data: {
+      name,
+      mins: Number(mins),
+      seconds: Number(seconds),
+    },
+  });
+  res.status(201).json({ message: "done" });
+});
+
+routes.get("/leaderboard", async (_req, res) => {
+  const leaderboard =
+    await prisma.$queryRaw`select * from "Leaderboard" order by mins, seconds`;
+  res.status(200).json(leaderboard);
+});
+
 export default routes;
