@@ -26,7 +26,9 @@ function Timer({ gameOver, setFinalTime }) {
       setFinalTime(time);
       return () => evtSource.close();
     }
-    const evtSource = new EventSource("http://localhost:3000/time");
+    const evtSource = new EventSource(
+      "https://wheres-waldo-a5ua.onrender.com/time",
+    );
     evtSource.onmessage = (event) => {
       setTime(event.data);
     };

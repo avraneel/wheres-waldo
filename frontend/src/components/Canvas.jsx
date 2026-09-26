@@ -155,7 +155,7 @@ function ContextMenu({ box, setBox, chars, setChars, setStatus, setGameOver }) {
   }
 
   async function makeRequest(name) {
-    const response = await fetch("http://localhost:3000/", {
+    const response = await fetch("https://wheres-waldo-a5ua.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

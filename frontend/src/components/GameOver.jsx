@@ -18,21 +18,27 @@ export default function GameOver({ gameOver, finalTime }) {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/leaderboard", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-      const data = await response.json();
-      if (data.message === "done") {
-        const resp = await fetch("http://localhost:3000/leaderboard", {
-          method: "GET",
+      const response = await fetch(
+        "https://wheres-waldo-a5ua.onrender.com/leaderboard",
+        {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-        });
+          body: JSON.stringify(body),
+        },
+      );
+      const data = await response.json();
+      if (data.message === "done") {
+        const resp = await fetch(
+          "https://wheres-waldo-a5ua.onrender.com/leaderboard",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
         const board = await resp.json();
         dialogRef.current.close();
         setScores(board);
