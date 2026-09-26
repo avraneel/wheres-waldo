@@ -30,3 +30,5 @@ export const characters = [
     drawn: false,
   },
 ];
+
+export const url = "https://wheres-waldo-a5ua.onrender.com";

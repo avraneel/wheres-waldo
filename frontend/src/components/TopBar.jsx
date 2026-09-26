@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import styles from "../css/topbar.module.css";
+import { url } from "./globals";
 
 export default function TopBar({ gameOver, finalTime, setFinalTime }) {
   return (
@@ -26,9 +27,7 @@ function Timer({ gameOver, setFinalTime }) {
       setFinalTime(time);
       return () => evtSource.close();
     }
-    const evtSource = new EventSource(
-      "https://wheres-waldo-a5ua.onrender.com/time",
-    );
+    const evtSource = new EventSource(`${url}/time`);
     evtSource.onmessage = (event) => {
       setTime(event.data);
     };
