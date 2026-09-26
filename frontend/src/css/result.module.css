@@ -1,4 +1,4 @@
-.result {
+.result:open {
   display: grid;
   justify-content: center;
   align-items: center;
