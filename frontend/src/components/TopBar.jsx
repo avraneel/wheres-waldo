@@ -35,7 +35,7 @@ function Timer({ gameOver, setFinalTime }) {
     };
 
     return () => evtSource.close();
-  }, [gameOver]);
+  }, [gameOver, setFinalTime]);
 
   return <p>{time}</p>;
 }

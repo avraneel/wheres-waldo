@@ -17,6 +17,10 @@ export default function Leaderboard({ scores }) {
     lead.showModal();
   }, []);
 
+  function handleClick() {
+    window.location.reload();
+  }
+
   return (
     <dialog ref={leadRef}>
       <h2>Leaderboard</h2>
@@ -29,7 +33,7 @@ export default function Leaderboard({ scores }) {
         </thead>
         <tbody>{tableBody}</tbody>
       </table>
-      <button>New Game</button>
+      <button onClick={handleClick}>New Game</button>
     </dialog>
   );
 }
