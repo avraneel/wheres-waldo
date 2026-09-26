@@ -7,7 +7,7 @@ export default function Leaderboard({ scores }) {
     <tr key={ind}>
       <td>{el.name}</td>
       <td>
-        {el.mins} : {el.seconds}
+        {el.mins} : {String(el.seconds).padStart(2, "0")}
       </td>
     </tr>
   ));
