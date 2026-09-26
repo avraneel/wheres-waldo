@@ -13,6 +13,7 @@ export default function Canvas({
   setStatus,
   chars,
   setChars,
+  gameOver,
   setGameOver,
 }) {
   const canvasRef = useRef(null);
@@ -140,7 +141,7 @@ export default function Canvas({
           />
         </div>
       )}
-      <Result status={status} setStatus={setStatus} />
+      <Result status={status} setStatus={setStatus} gameOver={gameOver} />
     </main>
   );
 }

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import styles from "../css/result.module.css";
 
-export default function Result({ status, setStatus }) {
+export default function Result({ status, setStatus, gameOver }) {
   const dialogRef = useRef(null);
   let text = "";
 
@@ -19,10 +19,10 @@ export default function Result({ status, setStatus }) {
 
   useEffect(() => {
     const dialog = dialogRef.current;
-    if (status === "found" || status === "wrong") {
+    if (gameOver === false && (status === "found" || status === "wrong")) {
       dialog.showModal();
     }
-  }, [status]);
+  }, [gameOver, status]);
 
   return (
     <dialog className={styles.result} ref={dialogRef}>

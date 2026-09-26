@@ -22,6 +22,7 @@ export default function App() {
         setStatus={setStatus}
         chars={chars}
         setChars={setChars}
+        gameOver={gameOver}
         setGameOver={setGameOver}
       />
       <Result gameOver={gameOver} />

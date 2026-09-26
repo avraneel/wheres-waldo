@@ -1,17 +1,24 @@
+import { useEffect, useRef } from "react";
+
 export default function Leaderboard({ scores }) {
-  const tableBody = scores.forEach((el) => {
-    return (
-      <tr>
-        <td>{el.name}</td>
-        <td>
-          {el.mins} : {el.seconds}
-        </td>
-      </tr>
-    );
-  });
+  const leadRef = useRef(null);
+
+  const tableBody = scores.map((el, ind) => (
+    <tr key={ind}>
+      <td>{el.name}</td>
+      <td>
+        {el.mins} : {el.seconds}
+      </td>
+    </tr>
+  ));
+
+  useEffect(() => {
+    const lead = leadRef.current;
+    lead.showModal();
+  }, []);
 
   return (
-    <div>
+    <dialog ref={leadRef}>
       <h2>Leaderboard</h2>
       <table>
         <thead>
@@ -22,6 +29,7 @@ export default function Leaderboard({ scores }) {
         </thead>
         <tbody>{tableBody}</tbody>
       </table>
-    </div>
+      <button>New Game</button>
+    </dialog>
   );
 }

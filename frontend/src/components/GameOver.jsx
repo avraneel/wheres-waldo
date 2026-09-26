@@ -1,6 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Leaderboard from "./Leaderboard";
 
 export default function GameOver({ gameOver, finalTime }) {
+  const [submitted, setSubmitted] = useState(false);
+  const [scores, setScores] = useState({});
+
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -12,7 +16,7 @@ export default function GameOver({ gameOver, finalTime }) {
       name,
       time,
     };
-    console.log(body);
+
     try {
       const response = await fetch("http://localhost:3000/leaderboard", {
         method: "POST",
@@ -22,7 +26,6 @@ export default function GameOver({ gameOver, finalTime }) {
         body: JSON.stringify(body),
       });
       const data = await response.json();
-      console.log(data);
       if (data.message === "done") {
         const resp = await fetch("http://localhost:3000/leaderboard", {
           method: "GET",
@@ -31,7 +34,9 @@ export default function GameOver({ gameOver, finalTime }) {
           },
         });
         const board = await resp.json();
-        console.log(board);
+        dialogRef.current.close();
+        setScores(board);
+        setSubmitted(true);
       }
     } catch (err) {
       console.log(err.message);
@@ -48,15 +53,18 @@ export default function GameOver({ gameOver, finalTime }) {
   }, [gameOver]);
 
   return (
-    <dialog ref={dialogRef}>
-      <form action="" method="post" onSubmit={handleSubmit}>
-        <h2>Congrats you found them all!</h2>
-        <label htmlFor="name">Enter your name*: </label>
-        <input type="text" name="name" id="name" required />
-        <p htmlFor="time">Time Taken: {finalTime}</p>
-        <button>Submit</button>
-      </form>
-      <button onClick={() => dialogRef.current.close()}>Close</button>
-    </dialog>
+    <>
+      <dialog ref={dialogRef}>
+        <form action="" method="post" onSubmit={handleSubmit}>
+          <h2>Congrats you found them all!</h2>
+          <label htmlFor="name">Enter your name*: </label>
+          <input type="text" name="name" id="name" required />
+          <p htmlFor="time">Time Taken: {finalTime}</p>
+          <button>Submit</button>
+        </form>
+        <button onClick={() => dialogRef.current.close()}>Close</button>
+      </dialog>
+      {submitted && <Leaderboard scores={scores} />}
+    </>
   );
 }
