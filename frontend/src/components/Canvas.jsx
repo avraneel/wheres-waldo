@@ -5,6 +5,8 @@ import styles from "../css/canvas.module.css";
 import contextMenuStyles from "../css/contextmenu.module.css";
 import Result from "./Result";
 
+import { url } from "./globals";
+
 const widthFactor = 100 / 1075;
 const heightFactor = 100 / 668;
 
@@ -155,7 +157,7 @@ function ContextMenu({ box, setBox, chars, setChars, setStatus, setGameOver }) {
   }
 
   async function makeRequest(name) {
-    const response = await fetch("https://wheres-waldo-a5ua.onrender.com", {
+    const response = await fetch(`${url}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

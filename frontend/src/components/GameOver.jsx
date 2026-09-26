@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Leaderboard from "./Leaderboard";
 
+import { url } from "./globals";
+
 export default function GameOver({ gameOver, finalTime }) {
   const [submitted, setSubmitted] = useState(false);
   const [scores, setScores] = useState({});
@@ -18,27 +20,21 @@ export default function GameOver({ gameOver, finalTime }) {
     };
 
     try {
-      const response = await fetch(
-        "https://wheres-waldo-a5ua.onrender.com/leaderboard",
-        {
-          method: "POST",
+      const response = await fetch(`${url}/leaderboard`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      const data = await response.json();
+      if (data.message === "done") {
+        const resp = await fetch(`${url}/leaderboard`, {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(body),
-        },
-      );
-      const data = await response.json();
-      if (data.message === "done") {
-        const resp = await fetch(
-          "https://wheres-waldo-a5ua.onrender.com/leaderboard",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
-        );
+        });
         const board = await resp.json();
         dialogRef.current.close();
         setScores(board);
