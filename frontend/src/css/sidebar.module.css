@@ -1,10 +1,10 @@
 .sidebar {
   grid-column: 1;
-  grid-template-rows: 1fr 10fr;
-  padding-bottom: 5rem;
   display: grid;
   justify-content: center;
+  align-content: start;
   grid-area: sidebar;
+  gap: 2rem;
 }
 
 .sidebarList {
@@ -13,6 +13,7 @@
   display: grid;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
 }
 
 .sidebarListItem {
@@ -20,7 +21,6 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 1rem;
 }
 
 @media (width <= 800px) {

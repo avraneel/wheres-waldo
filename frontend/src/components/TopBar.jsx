@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import styles from "../css/topbar.module.css";
 import { url } from "./globals";
 
@@ -38,5 +38,5 @@ function Timer({ gameOver, setFinalTime }) {
     return () => evtSource.close();
   }, [gameOver, setFinalTime]);
 
-  return <p>{time}</p>;
+  return <p className={styles.timer}>{time}</p>;
 }

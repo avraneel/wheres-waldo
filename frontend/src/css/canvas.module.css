@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   position: relative; /* to block the absolute */
-  border: 1px solid red;
+  background-image: radial-gradient(circle, #cbcbcb 0%, #3a3a3a 100%);
 }
 
 .mapImage {

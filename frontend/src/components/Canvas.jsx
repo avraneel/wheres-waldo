@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import imgUrl from "../assets/museum.avif";
 import markerUrl from "../assets/marker.svg";
 import styles from "../css/canvas.module.css";
-import contextMenuStyles from "../css/contextmenu.module.css";
 import Result from "./Result";
 
 import { url } from "./globals";
@@ -205,5 +204,5 @@ function ContextMenu({ box, setBox, chars, setChars, setStatus, setGameOver }) {
       ),
   );
 
-  return <ul className={contextMenuStyles.charList}>{items}</ul>;
+  return <ul className={styles.charList}>{items}</ul>;
 }

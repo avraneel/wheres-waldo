@@ -6,4 +6,10 @@
   justify-content: space-between;
   align-items: center;
   grid-area: topbar;
+  background-color: #820b29;
+  color: #e0e2db;
+}
+
+.timer {
+  font-size: 1.5rem;
 }
